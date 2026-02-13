@@ -2,7 +2,7 @@
 name: docmd-skill
 description: Skills for agents to use docmd(node project) to write and generate static web content
 license: MIT
-metadata: 
+metadata:
   authors: McCoy Zhang
   version: 0.1.0
 ---
@@ -12,7 +12,9 @@ metadata:
 The `docmd-skill` is a collection of skills designed for agents to utilize the `docmd` tool for writing markdown files and generating static web content(html page). This skill set enables agents to create, edit, and manage documentation and web pages efficiently using the capabilities provided by `docmd`.
 
 # Directory Structure
+
 The `docmd-skill` assumes the following directory structure for organizing markdown files and generated static
+
 ```
 project-root/
 │├── docs/   // writeable or updatable markdown files in this folder
@@ -25,7 +27,7 @@ project-root/
 │--docmd.config.js // docmd configuration file
 ```
 
-# generate-static-web 
+# generate-static-web
 
 The `generate-static-web` skill allows agents to convert markdown files located in the `docs/` directory into static HTML pages. The generated pages are saved in the specified output directory (e.g., `site/`).
 
@@ -39,12 +41,11 @@ fllowing the configuration in `docmd.config.js`, the markdown files will be proc
 
 eg., the `docs/index.md` will be converted to `site/index.html`, and `docs/posts/post1.md` will be converted to `site/posts/post1.html`.
 
-
 # Features
+
 - **Markdown Writing**: Agents can create and edit markdown files with ease, allowing for structured documentation.
 - **Static Web Generation**: Convert markdown files into static HTML pages, making it easy to publish content on the output dir.
-- **Content Management**: Organize and manage multiple markdown files 
-
+- **Content Management**: Organize and manage multiple markdown files
 
 # Configuration guide
 
@@ -121,7 +122,7 @@ module.exports = {
     },
     analytics: {
       googleV4: {
-        measurementId: "G-X9WTDL262N", // Replace with your Google Analytics Measurement ID
+        measurementId: "G-", // Replace with your Google Analytics Measurement ID
       },
     },
     sitemap: {
@@ -144,5 +145,29 @@ module.exports = {
     text: "Edit this page",
   },
 };
-
 ```
+
+# Markdown Structure
+
+Every Markdown (.md) file that docmd processes must begin with YAML frontmatter. Frontmatter is a block of YAML (YAML Ain’t Markup Language) enclosed by triple-dashed lines (---) at the very beginning of your file. It’s used to set metadata for each page.
+
+eg., a markdown file with frontmatter might look like this:
+
+```markdown
+---
+title: "My Awesome Page Title"
+description: "A concise and informative description for this page, used for SEO and potentially in listings."
+# You can add other custom fields here if needed for your templates or logic
+order: 1 # Example: for custom sorting if you implement such logic
+tags:
+  - guide
+  - advanced
+seo:
+  title: "Custom SEO Title (optional, defaults to page title)"
+  description: "Custom SEO Description (optional, defaults to frontmatter description)"
+---
+```
+
+# SEO
+
+The `docmd-skill` includes built-in SEO optimization features. By providing a `title` and `description` in the frontmatter of your markdown files, you can ensure that each generated HTML page has appropriate meta tags for search engines. Additionally, the SEO plugin can be configured in `docmd.config.js` to set default values and Open Graph/Twitter Card metadata for enhanced sharing on social media platforms. Write your own SEO information for each page when necessary
